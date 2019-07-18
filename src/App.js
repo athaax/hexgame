@@ -1,12 +1,12 @@
 import React from 'react';
-import Client from "./game/Client";
+import Client from "./client";
 
 const style = {
-  display: 'flex',
+    display: 'flex',
 };
 
 export const App = () => (
-  <div style={style}>
-    <Client></Client>
-  </div>
-)
+    <div style={style}>
+        <Client></Client>
+    </div>
+);

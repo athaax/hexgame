@@ -1,8 +1,9 @@
-import React from 'react';
-import { HexGrid } from 'boardgame.io/ui';
-import { createPoint, isSame } from '../utils';
-import { Token } from 'boardgame.io/dist/ui';
-import { Insect } from './Insect';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {HexGrid} from 'boardgame.io/ui';
+import {createPoint, isSame} from '../utils';
+import {Token} from 'boardgame.io/dist/ui';
+import Unit from './Unit';
 
 const style = {
   display: 'flex',
@@ -29,23 +30,27 @@ const styles = {
     cursor: 'pointer',
     backgroundColor: 'white',
   }
-}
+};
+
 const getCellColor_old = HexGrid.prototype._getCellColor;
 
-HexGrid.prototype._getCellColor = function(...coords) {
+HexGrid.prototype._getCellColor = function (...coords) {
   const color = getCellColor_old.bind(this)(...coords);
   return color !== 'white' ? color : '#ccccd0';
-}
+};
 
-export class Board extends React.Component {
+class Board extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.props = props;
     this.render = this.render.bind(this);
     this.cellClicked = this.cellClicked.bind(this);
   }
 
-  cellClicked({ x, y, z }) {
+  cellClicked({x, y, z}) {
+    // what unit was selected
+    // what options are now available in the toolbar
+    // possible paths? Pathfinding
     const phase = this.props.ctx.phase;
     const point = createPoint(x, y, z);
     if (phase === 'selectInsect') {
@@ -74,7 +79,7 @@ export class Board extends React.Component {
             this.props.G.insects.map((insect, i) => {
               const { x, y, z } = insect.point;
               return <Token x={x} y={y} z={z} key={i}>
-                <Insect insect={insect} />
+                <Unit insect={insect} />
               </Token>
             })
           }
@@ -95,3 +100,21 @@ export class Board extends React.Component {
     );
   }
 }
+
+Board.propTypes = {
+  G: PropTypes.instanceOf(Object), // Game object
+  ctx: PropTypes.instanceOf(Object), // game metadata
+  moves: PropTypes.instanceOf(Object), // dict of reducer functions defined in moves.js
+  events: PropTypes.instanceOf(Object), // An object containing functions to dispatch various game events like endTurn and endPhase.
+  reset: PropTypes.func.isRequired,
+  undo: PropTypes.func.isRequired,
+  redo: PropTypes.func.isRequired,
+  log: PropTypes.object.isRequired,
+  gameID: PropTypes.string.isRequired,
+  playerId: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired, // true if the client is able to currently make a move or interact with the game.
+  isMultiplayer: PropTypes.bool.isRequired,
+  isConnected: PropTypes.bool.isRequired // true if connection to the server is active
+};
+
+export default Board

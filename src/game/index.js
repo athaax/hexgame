@@ -1,10 +1,10 @@
-import { Game } from 'boardgame.io/core';
-import { moves } from './state/moves';
-import { setup } from './state/setup';
-import { postProcess } from './state/postProcess';
+import {Game} from 'boardgame.io/core';
+import {moves} from './moves';
+import {setup} from './setup';
+import {postProcess} from './postProcess';
 
-export const game = Game({
-  name: 'the hive',
+export const index = Game({
+  name: 'Hexapolis',
   setup,
   moves,
   flow: {

@@ -1,9 +1,9 @@
 import { Client } from 'boardgame.io/react';
-import { game } from './game';
-import { Board } from './ui/Board';
+import { index } from '../game';
+import Board from './Board';
 
 export default Client({
-  game,
+  game: index,
   board: Board,
   // ai,
   // multiplayer: { server: 'localhost:8000' },

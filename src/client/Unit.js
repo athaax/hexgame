@@ -7,7 +7,7 @@ const insectColors = {
   grasshopper: '#7cfc00',
 }
 
-export class Insect extends React.Component {
+class Unit extends React.Component {
   constructor(props) {
     super();
     this.props = props;
@@ -31,3 +31,5 @@ export class Insect extends React.Component {
     )
   }
 }
+
+export default Unit

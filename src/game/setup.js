@@ -1,9 +1,11 @@
 let insectId = 0;
+
 const createInsect = type => ({
   type,
   id: insectId++,
   isClickable: true,
-})
+});
+
 const createInsects = () => [
   createInsect('ant'),
   createInsect('ant'),
@@ -23,12 +25,31 @@ const createPlayer = id => ({
   moveCount: 0,
 });
 
+const mapSize = {
+  height: 99,
+  width: 134
+};
+
+const generateManTiles = () => {};
+
+// const createArena = () => {
+//   const myth = generateManTiles();
+//   return {
+//     // myth,
+//     man,
+//     // legend
+//   }
+// };
+
 export const setup = () => ({
   currentInsect: null,
   players: [
     createPlayer('0'),
     createPlayer('1')
   ],
+  currentPlayer: null,
+  qubitz: {},
+  arena: {},
   grid: {
     levels: 2,
     colorMap: {},
